@@ -2,32 +2,27 @@ package com.commerce;
 
 import com.commerce.annotations.Change;
 import com.commerce.flowers.Bouquet;
-import com.commerce.flowers.Data;
 import com.commerce.flowers.Flower;
 import com.commerce.log.EventLogException;
 import com.commerce.property.Owner;
 import com.commerce.sale.Seller;
 import com.commerce.supply.Supplier;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import static com.commerce.Request.rNotCorrect;
 
 public class Demo {
-    private FlowerShop fs;
     private Seller seller;
     private Owner owner;
     private Supplier supplier;
     private Bouquet bouquets[];
-    private Request[] requests;
+    private ArrayList<Request> requests;
     private double costsBefore, costsAfter;
 
     Demo() {
-        fs = new FlowerShop();
+        FlowerShop fs = new FlowerShop();
         seller = fs;
         owner = fs;
         supplier = fs;
@@ -43,7 +38,7 @@ public class Demo {
         for (Field f: getAnnotatedFields()) {
             if (f != null) {
                 if (f.getName().equals("height")) {
-                    seller.setHeight(requests[9], 30);  //change=false
+                    seller.setHeight(requests.get(9), 30);  //change=false
                 }
                 if (f.getName().equals("pricePerOne")) {
                     costsBefore = reflectGetCosts(); //reflection
@@ -98,9 +93,9 @@ public class Demo {
     }
     private void setPrice() {
         System.out.println("Set price");
-        for(int i = 0; i< requests.length; i++) {
+        for(Request r : requests) {
             try {
-                owner.setPrice(requests[i].getFlowerType(), requests[i].getColor());
+                owner.setPrice(r.getFlowerType(), r.getColor());
             } catch (EventLogException e) { e.printLog(); }
         }
     }

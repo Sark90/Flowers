@@ -1,30 +1,29 @@
 package com.commerce;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Request {
     private int number;
     private String color;
     private String flowerType;
-    private double price;
-    protected static String[] flowerTypes = {"rose", "climber rose", "tulip", "pink"};
-    protected static String[] flowerColors = {"white", "red", "rosy",
-                                              "yellow", "orange", "blue" };
+    private static String[] flowerTypes = {"rose", "climber rose", "tulip", "pink"};
+    private static String[] flowerColors = {"white", "red", "rosy", "yellow", "orange", "blue" };
     public static final Request rNotCorrect = new Request(2, "black", "violet"); //public -> private
-    private static final Request requests[] = new Request[10];
+    private static final ArrayList<Request> requests = new ArrayList<>();
     static {
-        requests[0] = new Request(40, "white", "climber rose");
-        requests[1] = new Request(20, "rosy", "climber rose");
-        requests[2] = new Request(20, "red", "rose");
-        requests[3] = new Request(20, "blue", "rose");
-        requests[4] = new Request(50, "orange", "tulip");
-        requests[5] = new Request(50, "yellow", "tulip");
-        requests[6] = new Request(60, "blue", "pink");
-        requests[7] = new Request(10, "red", "pink");
-        requests[8] = new Request(20, "orange", "rose");
-        requests[9] = new Request(10, "yellow", "pink");
+        requests.add(new Request(40, "white", "climber rose"));
+        requests.add(new Request(20, "rosy", "climber rose"));
+        requests.add(new Request(20, "red", "rose"));
+        requests.add(new Request(20, "blue", "rose"));
+        requests.add(new Request(50, "orange", "tulip"));
+        requests.add(new Request(50, "yellow", "tulip"));
+        requests.add(new Request(60, "blue", "pink"));
+        requests.add(new Request(10, "red", "pink"));
+        requests.add(new Request(20, "orange", "rose"));
+        requests.add(new Request(10, "yellow", "pink"));
     }
-    public static Request[] getRequests() {
+    public static ArrayList<Request> getRequests() {
         return requests;
     }
 
@@ -59,9 +58,5 @@ public class Request {
             randArr[i] = new Request(num, flowerColor, type);
         }
         return randArr;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 }
